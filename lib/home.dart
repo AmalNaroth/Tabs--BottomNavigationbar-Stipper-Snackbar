@@ -19,9 +19,9 @@ class _HomepageState extends State<Homepage> {
       body: Container(
         child: ElevatedButton(onPressed: (){
           // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("This is home page"),duration: Duration(seconds: 1),));
-          showAboutDialog(context:context,children: [
-            dialog
-          ]);
+          showDialog(context: context, builder: (context) {
+            return dialog;
+          },);
         }, child: Text("Click here")),
       ),
     );
