@@ -38,7 +38,14 @@ class _HomepageState extends State<Homepage> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        bottom: TabBar(
+          controller: tabController,
+          tabs: [
+          Tab(icon: Icon(Icons.favorite),),
+          Tab(icon: Icon(Icons.add),)
+        ])
+      ),
       body: uitabwidget(),
       bottomNavigationBar: Material(
         color: Colors.black,
