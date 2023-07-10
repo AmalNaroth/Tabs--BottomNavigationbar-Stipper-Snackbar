@@ -7,7 +7,7 @@ class Homepage extends StatefulWidget {
   State<Homepage> createState() => _HomepageState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _HomepageState extends State<Homepage> with SingleTickerProviderStateMixin{
   AlertDialog dialog=AlertDialog(
     content: Text("This is alert"),
     title: Text("This is home page"),
@@ -20,11 +20,35 @@ class _HomepageState extends State<Homepage> {
       Step(title: Text("Step 3"), content: Text("This is Thered page"),isActive: true)
 
     ];
+
+    TabController? tabController;
+
+    @override
+    void initState() {
+      super.initState();
+      tabController = TabController(length: 2, vsync: this);
+    }
+
+    @override
+  void dispose() {
+    // TODO: implement dispose
+    tabController!.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(),
-      body: stepper()
+      body: uitabwidget(),
+      bottomNavigationBar: Material(
+        color: Colors.black,
+        child: TabBar(
+          controller: tabController,
+          tabs: [
+          Tab(icon: Icon(Icons.favorite),),
+          Tab(icon: Icon(Icons.ad_units),),
+        ]),
+      ),
     );
   }
 
@@ -46,5 +70,35 @@ class _HomepageState extends State<Homepage> {
         }, child: Text("Click here")),
       );
   }
+
+  Widget uitabwidget(){
+    return TabBarView(
+      controller: tabController,
+      children: <Widget> [
+      PageOne(),
+      PageTwo()
+    ]);
+  }
 }
 
+class PageOne extends StatelessWidget {
+  const PageOne({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(child: Text("First page"),),
+    );
+  }
+}
+
+class PageTwo extends StatelessWidget {
+  const PageTwo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(child: Text("Second page"),),
+    );
+  }
+}
